@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class PostEditComponent implements OnInit {
 
   constructor() { }
-
+  changeAttribute(attr: string){
+    console.log(attr);
+  }
   ngOnInit() {
   }
 

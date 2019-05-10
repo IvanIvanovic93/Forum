@@ -1,17 +1,19 @@
 <div class="container">
-    <div class="row " >
+    <div class="row ">
         <div class="col-xs-12" *ngFor="let currentPost of post">
-            <a [routerLink]="['/post',currentPost.id, currentPost.title]">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a [routerLink]="['/post',currentPost.id, currentPost.title]" class="noLinkDecoration">
                         <h3>{{currentPost.title}}</h3>
-                        <p>{{currentPost.author}} - {{ currentPost.date }}</p>
-                    </div>
-                    <div class="panel-body">
-                        <p>{{ currentPost.content}} </p>
-                    </div>
+                    </a>
+                    <p>{{currentPost.author}} - {{ currentPost.date }}</p>
                 </div>
-            </a>
+                <div class="panel-body">
+                    <a [routerLink]="['/post',currentPost.id, currentPost.title]" class="noLinkDecoration">
+                        <p>{{ currentPost.content}} </p>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

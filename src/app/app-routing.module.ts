@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostComponent} from "./post/post.component";
-import { PostEditComponent} from "./post/post-edit/post-edit.component";
-import {RouterModule, Routes} from "@angular/router";
-import {NewPostComponent} from "./post/new-post/new-post.component";
-import {PostDetailComponent} from "./post/post-detail/post-detail.component";
+import { PostComponent} from './post/post.component';
+import { PostEditComponent} from './post/post-edit/post-edit.component';
+import {RouterModule, Routes} from '@angular/router';
+import {NewPostComponent} from './post/new-post/new-post.component';
+import {PostDetailComponent} from './post/post-detail/post-detail.component';
 
 
 const pageRoutes: Routes = [
@@ -14,7 +14,7 @@ const pageRoutes: Routes = [
   },
   { path: 'create-post', component: NewPostComponent },
   { path: 'post/:id/:title', component: PostDetailComponent },
-  { path:'**', component: PostComponent}
+  { path: '**', component: PostComponent}
 ];
 
 const routes: Routes = [];

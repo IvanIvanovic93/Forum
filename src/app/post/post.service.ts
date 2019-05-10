@@ -1,35 +1,43 @@
-import {Post} from "./post.model";
 import {OnInit} from '@angular/core';
 
+export interface PostInterface {
+    title: string;
+    content: string;
+    author: string;
+    date: string;
+    id: number;
+}
 
 export class PostService implements OnInit {
-  post: Post[]=[
-      new Post('Title 1',
-          'Testcontent TestcontentTestcontent Testcontent' ,
-          'Johann Peters',
-          '01.04.2019 - 18:56',
-          '1'),
-      new Post('Title Post 2',
-          'Content 2 Content 2 Content 2 Content 2 ' +
-          'Content 2 Content 2  Content 2 Content 2 ',
-          'Nicht Johann',
-          '02.04.2019 - 08:03',
-          '2'),
-      new Post('Title Post 3',
-          'asdf fass dass foo bar dadadad fafaf asdfa asdf Lorem ' +
-          'Ipsum Dolor Sit Amet etc',
-          'Irgendwer',
-          '11.11.2018 - 00:56',
-          '3')
-  ];
-  getPosts(){
-      return this.post.slice();
-  }
-ngOnInit(){
+    public posts: PostInterface[] = [
+        {
+            title: 'test',
+            content: 'Testcontent TestcontentTestcontent Testcontent',
+            author: 'Johann Peters',
+            date: '01.04.2019 - 18:56',
+            id: 1
+        },
+        {
+            title: 'test 2',
+            content: 'Testcontent TestcontentTestcontent Testcontent',
+            author: 'Johann Peters',
+            date: '01.04.2019 - 18:56',
+            id: 2
+        },
+    ];
 
-}
-  getPost(id: number){
-      console.log(id);
-  }
+    getPosts(): any {
+        return this.posts;
+    }
+
+    ngOnInit() {
+
+    }
+
+    getPost(id: number | string) {
+        return this.posts.find((post) => {
+            return post.id === id;
+        });
+    }
 
 }

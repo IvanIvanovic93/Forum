@@ -1,2 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
+
+.noLinkDecoration{
+  color:initial;
+}
+
+.noLinkDecoration:hover{
+  text-decoration: none;
+}
+
+.btn-default {
+  color: #337ab7;
+}

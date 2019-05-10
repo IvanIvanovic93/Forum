@@ -8,7 +8,6 @@ import { PostComponent } from "./post.component";
 import { PostRoutingModule} from "./post-routing.module";
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
       FormsModule,

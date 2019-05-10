@@ -1,6 +1,29 @@
-<p>
-  post-detail works!
-</p>
-<div *ngIf="post$">
-  {{post$.title}}
+<div class="col-xs-12">
+    <div class="container-fluid">
+        <div *ngIf="post" class="panel panel-primary">
+            <div class="panel-heading panel">
+                <h1>{{ post.title }}</h1>
+                <button class="btn btn-default pull-right" (click)="toggleEdit()">Edit Post</button>
+                <p class="">{{ post.author }} - <em> {{ post.date }} </em></p>
+            </div>
+            <div class="panel-body panel clearfix">
+                <div class="col-md-3">
+                    <img src="https://cdn2.iconfinder.com/data/icons/portrait/145/portrait-16-512.png" class="img-responsive">
+                </div>
+                <div class="col-md-9">
+                    <h2>{{ post.title }} </h2>
+                    <p> {{ post.content }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+            <app-post-edit *ngIf="buttonVisible === true "></app-post-edit>
+    </div>
+
+
+    <div class="pull-right">
+        <button class="btn-danger btn" (click)="goToHomepage()">Zurück</button>
+    </div>
 </div>
+

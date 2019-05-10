@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { PostService} from '../post.service';
+import {PostInterface, PostService} from '../post.service';
 import { Location} from '@angular/common';
+import {Observable} from 'rxjs';
+import {Post} from '../post.model';
 
 @Component({
   selector: 'app-post-detail',
@@ -10,7 +12,11 @@ import { Location} from '@angular/common';
   styleUrls: ['./post-detail.component.scss'],
   providers: [PostService]
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, AfterContentInit {
+  buttonVisible=true;
+  post$: Observable<Post>;
+  private id;
+  public post: PostInterface;
 
   constructor(
       private route: ActivatedRoute,
@@ -19,12 +25,20 @@ export class PostDetailComponent implements OnInit {
       private postService: PostService
   ) { }
 
-  ngOnInit() {
-    this.post$ = this.route.paramMap.pipe(
-        switchMap((params: ParamMap) =>
-            this.postService.getPost(params.get('id'))
-        )
-    );
+  ngAfterContentInit(): void {
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = +params.id;
+      this.post = this.postService.getPost(this.id);
+    });
+  }
+
+  goToHomepage(){
+    this.router.navigate(['/']);
+  }
+ toggleEdit(){
+    this.buttonVisible = !this.buttonVisible;
+ }
 }
