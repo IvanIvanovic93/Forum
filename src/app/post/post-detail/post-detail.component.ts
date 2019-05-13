@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, Output} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import {PostInterface, PostService} from '../post.service';
@@ -13,10 +13,10 @@ import {Post} from '../post.model';
   providers: [PostService]
 })
 export class PostDetailComponent implements OnInit, AfterContentInit {
-  buttonVisible=true;
-  post$: Observable<Post>;
+  buttonVisible = false;
   private id;
   public post: PostInterface;
+  @Output() CurrentEditablePost = this.post;
 
   constructor(
       private route: ActivatedRoute,

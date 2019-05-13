@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {PostService} from "./post.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {PostInterface, PostService} from './post.service';
 import {Post} from "./post.model";
+import {FormGroup} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -9,13 +11,13 @@ import {Post} from "./post.model";
   providers: [PostService]
 })
 export class PostComponent implements OnInit {
-  post: Post[];
+  post: Observable<PostInterface[]>;
 
   constructor(private postService: PostService) {
   }
 
   ngOnInit() {
-    this.post=this.postService.getPosts();
+    this.post = this.postService.loadPost();
   }
 
 }
