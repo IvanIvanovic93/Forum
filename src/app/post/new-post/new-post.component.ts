@@ -49,20 +49,17 @@ export class NewPostComponent implements OnInit {
         this.newPostFormAuthor = this.newPostForm.get('author').value.trim();
         this.newPostFormContent = this.newPostForm.get('content').value.trim();
         this.postDate = new Date();
-        if (this.newPostFormTitle === '' || this.newPostFormContent === '' || this.newPostFormAuthor === '') {
-            this.alertMessage = '';
-            if (this.newPostFormTitle === '') {
-                this.alertMessage += 'Title mustn\'t be empty \n';
-            }
-            if (this.newPostFormContent === '') {
-                this.alertMessage += 'Content mustn\'t be empty  \n';
-            }
-            if (this.newPostFormAuthor === '') {
-                this.alertMessage += 'Author mustn\'t be empty  \n';
-            }
+
+        this.validate(
+            this.newPostFormTitle,
+            this.newPostFormContent,
+            this.newPostFormAuthor,
+        );
+        if (this.alertMessage !== '') {
             return this.alertMessage;
         }
 
+        console.log(this.alertMessage);
         this.postService.createPost(
             this.newPostFormTitle,
             this.newPostFormAuthor,
@@ -72,6 +69,19 @@ export class NewPostComponent implements OnInit {
         );
 
         this.router.navigate(['/']);
+    }
 
+    validate(title, content, author) {
+        this.alertMessage = '';
+        if (title === '') {
+            this.alertMessage += 'Title mustn\'t be empty \n';
+        }
+        if (content === '') {
+            this.alertMessage += 'Content mustn\'t be empty  \n';
+        }
+        if (author === '') {
+            this.alertMessage += 'Author mustn\'t be empty  \n';
+        }
+        return this.alertMessage;
     }
 }

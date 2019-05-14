@@ -14,7 +14,6 @@ export class PostEditComponent implements OnInit {
   @Input() CurrentEditablePost: PostInterface;
   editedPostForm: FormGroup;
   postId;
-  private Title = 'Test';
 
   constructor(
       protected postDetail: PostDetailComponent,
