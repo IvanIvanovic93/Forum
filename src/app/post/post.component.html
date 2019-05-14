@@ -1,4 +1,9 @@
 <div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            {{ message }}
+        </div>
+    </div>
     <div class="row ">
         <div class="col-xs-12" *ngFor="let currentPost of post | async">
             <div class="panel panel-default">
@@ -6,7 +11,7 @@
                     <a [routerLink]="['/post',currentPost.id, currentPost.title]" class="noLinkDecoration">
                         <h3>{{currentPost.title}}</h3>
                     </a>
-                    <p>{{currentPost.author}} - {{ currentPost.date }}</p>
+                    <p>{{currentPost.author}} - {{ currentPost.date | date: 'MMMMd, y - HH:mm' }}</p>
                 </div>
                 <div class="panel-body">
                     <a [routerLink]="['/post',currentPost.id, currentPost.title]" class="noLinkDecoration">

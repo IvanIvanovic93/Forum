@@ -4,7 +4,8 @@
             <div class="panel-heading panel">
                 <h1>{{ post.title }}</h1>
                 <button class="btn btn-default pull-right" (click)="toggleEdit()">Edit Post</button>
-                <p class="">{{ post.author }} - <em> {{ post.date }} </em></p>
+                <button class="btn btn-danger pull-right" (click)="deletePost()">Delete Post</button>
+                <p class="">{{ post.author }} - <em> {{ post.date | date: 'MMMMd, y - HH:mm' }} </em></p>
             </div>
             <div class="panel-body panel clearfix">
                 <div class="col-md-3">

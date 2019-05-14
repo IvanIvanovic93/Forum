@@ -1,3 +1,68 @@
-<p>
-  new-post works!
-</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3> Create Post</h3>
+    </div>
+    <div class="panel-body" >
+        <form [formGroup]="newPostForm" (ngSubmit)="Submit()">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="title"> Title: </label>
+                </div>
+                <div class="input-group col-xs-9 mb-3 form">
+                    <input type="text"
+                           name="title"
+                           id="title"
+                           class="form-control input-group-text"
+                           placeholder="Change title here"
+                           formControlName="title"
+                           required="required"
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="author"> Author: </label>
+                </div>
+                <div class="input-group col-xs-9 mb-3">
+                    <input type="text"
+                           name="author"
+                           id="author"
+                           class="form-control input-group-text"
+                           placeholder="Change author here"
+                           formControlName="author"
+                           required
+                    >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="content"> Content: </label>
+                </div>
+                <div class="input-group col-xs-9">
+                <textarea type="text"
+                          name="content"
+                          id="content"
+                          class="form-control input-group-text"
+                          placeholder="Change content here"
+                          formControlName="content"
+                          required
+                ></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 alert" *ngIf="alertMessage !== ''">
+                    <p><b>FEHLER:</b></p>
+                </div>
+                <div class="col-xs-5 alert" *ngIf="alertMessage !== '' ">
+                    {{alertMessage}}
+                </div>
+                <div [ngClass]="alertMessage === '' ? 'col-xs-12' : 'col-xs-5' ">
+                    <button type="submit" class="btn btn-success pull-right inputButton" >Create Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

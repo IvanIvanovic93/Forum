@@ -1,16 +1,15 @@
 import {AfterContentInit, Component, OnInit, Output} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import {PostInterface, PostService} from '../post.service';
 import { Location} from '@angular/common';
-import {Observable} from 'rxjs';
-import {Post} from '../post.model';
+import {PostComponent} from '../post.component';
+
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss'],
-  providers: [PostService]
+  providers: [PostService, PostComponent]
 })
 export class PostDetailComponent implements OnInit, AfterContentInit {
   buttonVisible = false;
@@ -22,7 +21,8 @@ export class PostDetailComponent implements OnInit, AfterContentInit {
       private route: ActivatedRoute,
       private router: Router,
       private location: Location,
-      private postService: PostService
+      private postService: PostService,
+      private postComponent: PostComponent
   ) { }
 
   ngAfterContentInit(): void {
@@ -35,10 +35,16 @@ export class PostDetailComponent implements OnInit, AfterContentInit {
     });
   }
 
-  goToHomepage(){
+  deletePost() {
+    this.postService.deletePost(this.id);
+    this.postComponent.message = 'Post Deleted';
+    this.goToHomepage();
+  }
+
+  goToHomepage() {
     this.router.navigate(['/']);
   }
- toggleEdit(){
+ toggleEdit() {
     this.buttonVisible = !this.buttonVisible;
  }
 }

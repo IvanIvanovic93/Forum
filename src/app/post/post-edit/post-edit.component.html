@@ -13,12 +13,11 @@
                            name="title"
                            id="title"
                            class="form-control input-group-text"
-                           placeholder="Change title here"
                            formControlName="title"
+                           [value]="CurrentEditablePost.title"
                     >
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-xs-2">
                     <label for="author"> Author: </label>
                 </div>
@@ -29,6 +28,7 @@
                            class="form-control input-group-text"
                            placeholder="Change author here"
                            formControlName="author"
+                           [value]="CurrentEditablePost.author"
                     >
                 </div>
             </div>
@@ -43,6 +43,7 @@
                           class="form-control input-group-text"
                           placeholder="Change content here"
                           formControlName="content"
+                          [value]="CurrentEditablePost.content"
                 ></textarea>
                 </div>
             </div>

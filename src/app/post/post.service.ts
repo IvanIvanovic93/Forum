@@ -1,8 +1,5 @@
 import {of} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {PostEditComponent} from './post-edit/post-edit.component';
-import {post} from 'selenium-webdriver/http';
-import {Post} from './post.model';
 import {LocalStorage} from 'ngx-store';
 
 export interface PostInterface {
@@ -15,23 +12,38 @@ export interface PostInterface {
 
 @Injectable()
 export class PostService {
-    currentPost;
     @LocalStorage() public posts: PostInterface[] = [
         {
             title: 'test',
             content: 'Testcontent TestcontentTestcontent Testcontent',
             author: 'Johann Peters',
-            date: '01.04.2019 - 18:56',
+            date: 'Tue May 14 2019 16:56:24 GMT+0200 (Mitteleuropäische Sommerzeit)',
             id: 1
         },
         {
             title: 'test 2',
             content: 'Testcontent 2 TestcontentTestcontent Testcontent',
             author: 'Johann Peters 2',
-            date: '02.04.2019 - 18:56',
+            date: 'Tue May 14 2019 16:56:24 GMT+0200 (Mitteleuropäische Sommerzeit)',
             id: 2
         },
+        {
+            title: 'test',
+            content: 'Testcontent TestcontentTestcontent Testcontent',
+            author: 'Johann Peters',
+            date: 'Tue May 14 2019 16:56:24 GMT+0200 (Mitteleuropäische Sommerzeit)',
+            id: 3
+        },
+        {
+            title: 'test 2',
+            content: 'Testcontent 2 TestcontentTestcontent Testcontent',
+            author: 'Johann Peters 2',
+            date: 'Tue May 14 2019 16:56:24 GMT+0200 (Mitteleuropäische Sommerzeit)',
+            id: 4
+        },
     ];
+    private currentPost;
+
 
     getPost(id: number | string): PostInterface {
         return this.posts.find((post) => {
@@ -44,6 +56,15 @@ export class PostService {
     }
 
     overWritePost(title, author, content, date, id) {
-        this.posts.splice(id - 1 , 1, {title, content, author, date, id});
+        this.currentPost = this.posts.findIndex(x => x.id === id);
+        this.posts.splice(this.currentPost , 1, {title, content, author, date, id});
+    }
+    createPost(title, author, content, date, id) {
+        this.posts.push({title, author, content, date, id});
+    }
+
+    deletePost(id) {
+        this.currentPost = this.posts.findIndex(x => x.id === id);
+        this.posts.splice(this.currentPost, 1);
     }
 }

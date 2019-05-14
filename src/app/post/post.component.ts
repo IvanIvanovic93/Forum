@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PostInterface, PostService} from './post.service';
-import {Post} from "./post.model";
-import {FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
+import {Input} from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'app-post',
@@ -12,12 +11,14 @@ import {Observable} from 'rxjs';
 })
 export class PostComponent implements OnInit {
   post: Observable<PostInterface[]>;
-
+  public message;
   constructor(private postService: PostService) {
   }
 
   ngOnInit() {
     this.post = this.postService.loadPost();
+    if (this.postService.posts.length < 1) {
+      this.message = 'Post deleted, No Posts left';
+    }
   }
-
 }

@@ -1,26 +1,26 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder} from '@angular/forms';
 import {PostInterface, PostService} from '../post.service';
-import {Post} from '../post.model';
-import {tap} from 'rxjs/operators';
-import {formatDate} from '@angular/common';
-import {LocalStorage} from 'ngx-store';
+import {DatePipe} from '@angular/common';
+import {PostDetailComponent} from '../post-detail/post-detail.component';
 
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
-  styleUrls: ['./post-edit.component.scss']
+  styleUrls: ['./post-edit.component.scss'],
+  providers: [DatePipe]
 })
 export class PostEditComponent implements OnInit {
   @Input() CurrentEditablePost: PostInterface;
   editedPostForm: FormGroup;
-  editedPost: Observable<PostInterface[]>;
   postId;
+  private Title = 'Test';
 
   constructor(
+      protected postDetail: PostDetailComponent,
       private formBuilder: FormBuilder,
-      private postService: PostService
+      private postService: PostService,
+      private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -31,22 +31,21 @@ export class PostEditComponent implements OnInit {
       content: [''],
       id: ['']
     });
-
-    this.editedPost = this.postService.loadPost();
   }
 
   onSubmit() {
     this.postId = this.CurrentEditablePost.id;
     if (this.editedPostForm.get('title').value !== '') {
-      this.CurrentEditablePost.title = this.editedPostForm.get('title').value;
+      this.CurrentEditablePost.title = this.editedPostForm.get('title').value.trim();
     }
     if (this.editedPostForm.get('author').value !== '') {
-      this.CurrentEditablePost.author = this.editedPostForm.get('author').value;
+      this.CurrentEditablePost.author = this.editedPostForm.get('author').value.trim();
     }
     if (this.editedPostForm.get('content').value !== '') {
-      this.CurrentEditablePost.content = this.editedPostForm.get('content').value;
+      this.CurrentEditablePost.content = this.editedPostForm.get('content').value.trim();
     }
-    this.CurrentEditablePost.date = new Date().toDateString();
+    this.CurrentEditablePost.date = new Date();
+    console.log(this.CurrentEditablePost.date);
 
     this.postService.overWritePost(
         this.CurrentEditablePost.title,
@@ -54,5 +53,7 @@ export class PostEditComponent implements OnInit {
         this.CurrentEditablePost.content,
         this.CurrentEditablePost.date,
         this.postId);
+    this.postDetail.toggleEdit();
+
   }
 }
