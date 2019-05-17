@@ -4,12 +4,13 @@ import {PostInterface, PostService} from '../post.service';
 import {DatePipe} from '@angular/common';
 import {PostDetailComponent} from '../post-detail/post-detail.component';
 import {Router} from '@angular/router';
+import {StatusService} from '../../status.service';
 
 @Component({
     selector: 'app-new-post',
     templateUrl: './new-post.component.html',
     styleUrls: ['./new-post.component.scss'],
-    providers: [PostService, DatePipe, PostDetailComponent]
+    providers: [PostService, DatePipe, PostDetailComponent, StatusService]
 })
 export class NewPostComponent implements OnInit {
 
@@ -17,7 +18,8 @@ export class NewPostComponent implements OnInit {
         private postService: PostService,
         private formBuilder: FormBuilder,
         private datePipe: DatePipe,
-        private router: Router
+        private router: Router,
+        private statusService: StatusService
     ) {
     }
 
@@ -28,6 +30,7 @@ export class NewPostComponent implements OnInit {
     protected newPostFormAuthor: string;
     protected newPostFormTitle: string;
     private alertMessage = '';
+    protected comments;
 
     ngOnInit() {
         this.newPostForm = this.formBuilder.group({
@@ -41,15 +44,15 @@ export class NewPostComponent implements OnInit {
     }
 
     Submit(): string {
-        // console.log(this.newPostForm.get('title').value)
-        // console.log(this.currentNewPost);
+        this.statusService.clearStatus();
 
         this.postId = this.postService.posts.length + 1;
         this.newPostFormTitle = this.newPostForm.get('title').value.trim();
         this.newPostFormAuthor = this.newPostForm.get('author').value.trim();
         this.newPostFormContent = this.newPostForm.get('content').value.trim();
         this.postDate = new Date();
-
+        this.comments = [];
+        // check if title, content, author isn't empty
         this.validate(
             this.newPostFormTitle,
             this.newPostFormContent,
@@ -59,15 +62,14 @@ export class NewPostComponent implements OnInit {
             return this.alertMessage;
         }
 
-        console.log(this.alertMessage);
         this.postService.createPost(
             this.newPostFormTitle,
             this.newPostFormAuthor,
             this.newPostFormContent,
             this.postDate,
-            this.postId
+            this.postId,
+            this.comments
         );
-
         this.router.navigate(['/']);
     }
 

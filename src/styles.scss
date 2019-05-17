@@ -1,24 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
 
-.noLinkDecoration{
-  color:initial;
+.noLinkDecoration {
+  color: initial;
 }
 
-.noLinkDecoration:hover{
+.noLinkDecoration:hover {
   text-decoration: none;
 }
 
 .btn-default {
   color: #337ab7;
-  margin-left:10px;
+  margin-left: 10px;
+}
+
+.btn-danger {
+  margin-left: 10px;
 }
 
 .alert {
-  color:#e60006;
+  color: #e60006;
   white-space: pre-line;
 }
 
-textarea {
-  white-space: pre-line;
+panel-danger {
+  box-shadow: 3px 3px 3px #e60006;
+}
+
+input {
+  padding: 10px auto;
 }

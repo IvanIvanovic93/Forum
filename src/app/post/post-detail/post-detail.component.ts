@@ -1,8 +1,9 @@
-import {AfterContentInit, Component, OnInit, Output} from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {Component, OnInit, Output} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import {PostInterface, PostService} from '../post.service';
 import { Location} from '@angular/common';
 import {PostComponent} from '../post.component';
+import {StatusService} from '../../status.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {PostComponent} from '../post.component';
   styleUrls: ['./post-detail.component.scss'],
   providers: [PostService, PostComponent]
 })
-export class PostDetailComponent implements OnInit, AfterContentInit {
+export class PostDetailComponent implements OnInit {
   buttonVisible = false;
   private id;
   public post: PostInterface;
@@ -22,13 +23,12 @@ export class PostDetailComponent implements OnInit, AfterContentInit {
       private router: Router,
       private location: Location,
       private postService: PostService,
-      private postComponent: PostComponent
+      private postComponent: PostComponent,
+      private statusService: StatusService
   ) { }
 
-  ngAfterContentInit(): void {
-  }
-
   ngOnInit() {
+    // defines var id of post to commit
     this.route.params.subscribe(params => {
       this.id = +params.id;
       this.post = this.postService.getPost(this.id);
@@ -37,7 +37,8 @@ export class PostDetailComponent implements OnInit, AfterContentInit {
 
   deletePost() {
     this.postService.deletePost(this.id);
-    this.postComponent.message = 'Post Deleted';
+    //gives status that post is deleted
+    this.statusService.deletedPost();
     this.goToHomepage();
   }
 

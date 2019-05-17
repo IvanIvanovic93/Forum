@@ -13,16 +13,15 @@ import {PostDetailComponent} from '../post-detail/post-detail.component';
 export class PostEditComponent implements OnInit {
   @Input() CurrentEditablePost: PostInterface;
   editedPostForm: FormGroup;
-  postId;
 
   constructor(
       protected postDetail: PostDetailComponent,
       private formBuilder: FormBuilder,
       private postService: PostService,
-      private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
+    // builds form through formbuilder with given form-controls
     this.editedPostForm = this.formBuilder.group({
       title: [''],
       date: [''],
@@ -33,7 +32,7 @@ export class PostEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.postId = this.CurrentEditablePost.id;
+    //
     if (this.editedPostForm.get('title').value !== '') {
       this.CurrentEditablePost.title = this.editedPostForm.get('title').value.trim();
     }
@@ -51,7 +50,8 @@ export class PostEditComponent implements OnInit {
         this.CurrentEditablePost.author,
         this.CurrentEditablePost.content,
         this.CurrentEditablePost.date,
-        this.postId);
+        this.CurrentEditablePost.id);
+    // hide edit inputs
     this.postDetail.toggleEdit();
 
   }

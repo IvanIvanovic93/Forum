@@ -22,9 +22,19 @@
             <app-post-edit *ngIf="buttonVisible === true" [CurrentEditablePost]="post"></app-post-edit>
     </div>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-right">
+                <button class="btn-danger btn" (click)="goToHomepage()">Zurück</button>
+            </div>
+        </div>
+    </div>
 
-    <div class="pull-right">
-        <button class="btn-danger btn" (click)="goToHomepage()">Zurück</button>
+
+    <div class="container-fluid col-xs-12">
+        <div class="row">
+            <app-comments></app-comments>
+        </div>
     </div>
 </div>
 

@@ -1,11 +1,15 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
-            {{ message }}
+        <div class="col-xs-12" *ngIf="message !== '' ">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    {{ message }}
+                </div>
+            </div>
         </div>
     </div>
     <div class="row ">
-        <div class="col-xs-12" *ngFor="let currentPost of post | async">
+        <div class="col-xs-12" *ngFor="let currentPost of posts | async">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <a [routerLink]="['/post',currentPost.id, currentPost.title]" class="noLinkDecoration">
