@@ -1,8 +1,6 @@
 import {of} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {LocalStorage, LocalStorageService} from 'ngx-store';
-import {AppModule} from '../app.module';
-import {stringify} from 'querystring';
 
 export interface PostInterface {
     title: string;
@@ -118,7 +116,7 @@ export class PostService {
         this.posts.splice(this.currentPost, 1);
     }
 
-    writeComment(title, author, content, date, postId, id) {
+    writeComment(title, content, author, date, postId, id) {
         this.currentPost = this.posts.findIndex(x => x.id === postId);
         this.posts[this.currentPost].comments.push({title, content, author, date, id});
         this.localStorageService.set('posts', this.posts);
@@ -127,5 +125,12 @@ export class PostService {
     deleteComment(currentPost, id) {
         this.posts[currentPost].comments.splice(id, 1);
         this.localStorageService.set('posts', this.posts);
+    }
+
+    editComment(title, content, author, date, postId, id) {
+        this.currentPost = this.posts.findIndex(x => x.id === postId);
+        this.posts[this.currentPost].comments.splice(id, 1, {title, author, content, date, id});
+        this.localStorageService.set('posts', this.posts);
+
     }
 }

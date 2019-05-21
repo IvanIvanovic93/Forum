@@ -1,0 +1,56 @@
+<div class="panel panel-heading" id="{{comment.title}}{{comment.id}}">
+  <div class="pull-right">
+    <button class="btn btn-primary" (click)="onEditComment(comment)"><span
+            class="glyphicon glyphicon-pencil"></span></button>
+    <button class="btn btn-danger" (click)="onDeleteComment(comment)">X</button>
+  </div>
+  <h4>{{comment.title}}</h4>
+  <p>{{comment.author}} wrote on {{ comment.date | date: 'MMMM d, y - HH:mm:ss' }}</p>
+</div>
+<div class="panel panel-body">
+  {{comment.content}}
+  <div class="container" *ngIf="editFormVisible === true">
+    <form [formGroup]="editCommentForm" (ngSubmit)="SubmitEditedComment(comment)">
+      <div class="row">
+        <h3>Edit Comment</h3>
+        <div class="input-group col-xs-4 mb-3 form">
+          <input type="text"
+                 name="editTitle"
+                 id="editTitle"
+                 class="form-control input-group-text"
+                 placeholder="Change title here"
+                 formControlName="editTitle"
+                 [value]="comment.title"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group col-xs-4 mb-3">
+          <input type="text"
+                 name="editAuthor"
+                 id="editAuthor"
+                 class="form-control input-group-text"
+                 placeholder="Change author here"
+                 formControlName="editAuthor"
+                 [value]="comment.author"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group col-xs-4">
+                <textarea type="text"
+                          name="editContent"
+                          id="editContent"
+                          class="form-control input-group-text "
+                          placeholder="Change content here"
+                          formControlName="editContent"
+                          [value]="comment.content"
+                ></textarea>
+          <button type="submit" class="btn btn-success">Save</button>
+          <p class="alert">{{alertMessage}}</p>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

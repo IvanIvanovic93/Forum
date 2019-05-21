@@ -69,58 +69,7 @@
 <div class="col-xs-6">
     <!--  For each Object of comments, create one panel with comment-->
     <div class="panel panel-default" *ngFor="let comment of comments">
-        <div class="panel panel-heading" id="{{comment.title}}{{comment.id}}">
-            <div class="pull-right">
-                <button class="btn btn-primary" (click)="onEditComment(comment)"><span
-                        class="glyphicon glyphicon-pencil"></span></button>
-                <button class="btn btn-danger" (click)="onDeleteComment(comment)">X</button>
-            </div>
-            <h4>{{comment.title}}</h4>
-            <p>{{comment.author}} - {{ comment.date | date: 'MMMMd, y - HH:mm:ss' }}</p>
-        </div>
-        <div class="panel panel-body">
-            {{comment.content}}
-            <div class="container" *ngIf="editFormVisible === true">
-                <form [formGroup]="editCommentForm" (ngSubmit)="Submit()">
-                    <div class="row">
-                        <h3>Edit Comment</h3>
-                        <div class="input-group col-xs-4 mb-3 form">
-                            <input type="text"
-                                   name="editTitle"
-                                   id="editTitle"
-                                   class="form-control input-group-text"
-                                   placeholder="Change title here"
-                                   formControlName="editTitle"
-                            >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group col-xs-4 mb-3">
-                            <input type="text"
-                                   name="editAuthor"
-                                   id="editAuthor"
-                                   class="form-control input-group-text"
-                                   placeholder="Change author here"
-                                   formControlName="editAuthor"
-                            >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group col-xs-4">
-                <textarea type="text"
-                          name="editContent"
-                          id="editContent"
-                          class="form-control input-group-text"
-                          placeholder="Change content here"
-                          formControlName="editContent"
-                          required
-                ></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        </div>
+        <app-comment [comment]="comment"></app-comment>
     </div>
 </div>
 

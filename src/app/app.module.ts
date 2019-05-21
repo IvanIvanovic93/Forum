@@ -10,6 +10,7 @@ import { NewPostComponent } from './post/new-post/new-post.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommentsComponent } from './post/post-detail/comments/comments.component';
 import {LocalStorageService} from 'ngx-store';
+import { CommentComponent } from './post/post-detail/comments/comment/comment.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {LocalStorageService} from 'ngx-store';
         PostEditComponent,
         PostDetailComponent,
         NewPostComponent,
-        CommentsComponent
+        CommentsComponent,
+        CommentComponent
     ],
     imports: [
         BrowserModule,

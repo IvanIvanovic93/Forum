@@ -19,12 +19,9 @@ export class CommentsComponent implements OnInit, DoCheck {
     ) {
     }
 
-    public selectedComment;
     public selectedPostIndex;
     public comments;
     public commentForm: FormGroup;
-    public editCommentForm: FormGroup;
-    public editFormVisible = false;
     private id;
     private title;
     public post: PostInterface;
@@ -37,13 +34,6 @@ export class CommentsComponent implements OnInit, DoCheck {
                 title: '',
                 author: '',
                 content: ''
-            }
-        );
-        this.editCommentForm = this.formBuilder.group(
-            {
-                editTitle: '',
-                editAuthor: '',
-                editContent: ''
             }
         );
     }
@@ -73,7 +63,7 @@ export class CommentsComponent implements OnInit, DoCheck {
             this.commentForm.get('title').value,
             this.commentForm.get('content').value,
             this.commentForm.get('author').value,
-            new Date().toDateString(),
+            new Date(),
             this.id,
             this.commentId
         );
@@ -99,13 +89,4 @@ export class CommentsComponent implements OnInit, DoCheck {
         return this.alertMessage;
     }
 
-    onDeleteComment(comment) {
-        this.selectedComment = this.post.comments.findIndex(x => x.id === comment.id);
-        this.postService.deleteComment(this.selectedPostIndex, this.selectedComment);
-    }
-
-    onEditComment(comment) {
-        this.selectedComment = this.post.comments.findIndex(x => x.id === comment.id);
-        this.editFormVisible = !this.editFormVisible;
-    }
 }

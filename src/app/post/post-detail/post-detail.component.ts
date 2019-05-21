@@ -37,7 +37,7 @@ export class PostDetailComponent implements OnInit {
 
   deletePost() {
     this.postService.deletePost(this.id);
-    //gives status that post is deleted
+    // gives status that post is deleted
     this.statusService.deletedPost();
     this.goToHomepage();
   }
